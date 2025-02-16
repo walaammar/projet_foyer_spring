@@ -3,58 +3,68 @@ package tn.esprit.foyer.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.foyer.entities.Foyer;
-import tn.esprit.foyer.services.IFoyerService;
+import tn.esprit.foyer.entities.Etudiant;
+import tn.esprit.foyer.entities.Tache;
+import tn.esprit.foyer.services.ITacheService;
+
+import java.util.HashMap;
 import java.util.List;
+
 @RestController
 @AllArgsConstructor
-@RequestMapping("/foyer")
+@RequestMapping("/tache")
 
-public class FoyerRestController {
+public class TacheRestController {
 
-    IFoyerService foyerService;
-    // http://localhost:8089/foyer/foyer/retrieve-all-foyers
-    @GetMapping("/retrieve-all-foyers")
+    ITacheService tacheService;
+    // http://localhost:8089/foyer/tache/retrieve-all-taches
+    @GetMapping("/retrieve-all-taches")
     @ResponseBody
-    public List<Foyer> getFoyers() {
-        List<Foyer> listFoyers = foyerService.retrieveAllFoyers();
-        return listFoyers;
+    public List<Tache> getFoyers() {
+        List<Tache> listTaches = tacheService.retrieveAllTaches();
+        return listTaches;
     }
 
-    // http://localhost:8089/foyer/foyer/retrieve-foyer/8
-    @GetMapping("/retrieve-foyer/{foyerId}")
+    // http://localhost:8089/foyer/tache/retrieve-tache/8
+    @GetMapping("/retrieve-tache/{tacheId}")
     @ResponseBody
-    public Foyer retrieveFoyer(@PathVariable("foyerId") Long foyerId) {
-        return foyerService.retrieveFoyer(foyerId);
+    public Tache retrieveTache(@PathVariable("tacheId") Long tacheId) {
+        return tacheService.retrieveTache(tacheId);
     }
 
-    // http://localhost:8089/foyer/foyer/add-foyer
-    @PostMapping("/add-foyer")
+    // http://localhost:8089/foyer/tache/add-tache
+    @PostMapping("/add-tache")
     @ResponseBody
-    public Foyer addFoyer(@RequestBody Foyer f) {
-        Foyer foyer= foyerService.addFoyer(f);
-        return foyer;
+    public Tache addTache(@RequestBody Tache t) {
+        Tache tache= tacheService.addTache(t);
+        return tache;
     }
 
-    // http://localhost:8089/foyer/foyer/add-foyer-with-bloc
-    @PostMapping("/add-foyer-with-bloc")
+
+    // http://localhost:8089/foyer/tache/update-tache
+    @PutMapping("/update-tache")
     @ResponseBody
-    public Foyer addFoyerWithBloc(@RequestBody Foyer f) {
-        Foyer foyer= foyerService.addFoyerWithBloc(f);
-        return foyer;
+    public Tache updateTache(@RequestBody Tache t) {
+        Tache tache= tacheService.updateTache(t);
+        return tache;
+    }
+    // http://localhost:8089/foyer/tache/removeidTache
+    @DeleteMapping("/removeTache/{idTache}")
+    @ResponseBody
+    public void removeTache(@PathVariable("idTache") Long idTache) {
+        tacheService.removeTache(idTache);
     }
 
-    // http://localhost:8089/foyer/foyer/update-foyer
-    @PutMapping("/update-foyer")
+    // http://localhost:8089/foyer/tache/addTachesAndAffectToEtudiant
+    @PostMapping("/addTachesAndAffectToEtudiant/{nomEt}/{prenomEt}")
     @ResponseBody
-    public Foyer updateFoyer(@RequestBody Foyer f) {
-        Foyer foyer= foyerService.updateFoyer(f);
-        return foyer;
+    public List<Tache> addTachesAndAffectToEtudiant(@RequestBody List<Tache> taches, @PathVariable("nomEt") String nomEt, @PathVariable("prenomEt") String prenomEt) {
+        return tacheService.addTachesAndAffectToEtudiant(taches, nomEt, prenomEt);
     }
-    // http://localhost:8089/foyer/foyer/removeFoyer
-    @DeleteMapping("/removeFoyer/{idFoyer}")
-    @ResponseBody
-    public void removeFoyer(@PathVariable("idFoyer") Long idFoyer) {
-        foyerService.removeFoyer(idFoyer);
+
+    // http://localhost:8089/foyer/tache/calculNouveauMontantInscriptionDesEtudiants
+    @GetMapping("/calculNouveauMontantInscriptionDesEtudiants")
+    public HashMap<String, Float> calculNouveauMontantInscriptionDesEtudiants() {
+      return  tacheService.calculNouveauMontantInscriptionDesEtudiants();
     }
 }

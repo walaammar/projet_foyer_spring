@@ -15,11 +15,13 @@ import java.util.List;
 @Setter
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
+
 public class Foyer implements Serializable {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name="idFoyer")
+
     Long idFoyer; // Clé primaire
+    @Column(nullable = false)
     String nomFoyer;
     Long capaciteFoyer;
     @OneToMany(mappedBy ="foyer",  cascade = CascadeType.ALL)

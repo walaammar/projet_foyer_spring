@@ -8,8 +8,12 @@ public interface IFoyerService {
 
     List<Foyer> retrieveAllFoyers();
     Foyer addFoyer(Foyer f);
-    Foyer addFoyerWithBloc(Foyer f);
     Foyer updateFoyer(Foyer f);
     Foyer retrieveFoyer(Long idFoyer);
     void removeFoyer(Long idFoyer);
+
+
+
+    Foyer addFoyerWithBloc(Foyer f);
+
 }

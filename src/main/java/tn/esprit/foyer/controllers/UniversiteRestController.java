@@ -53,8 +53,7 @@ public class UniversiteRestController {
     @ResponseBody
     public Universite affecterFoyerAUniversite (@PathVariable("idFoyer") long idFoyer,
                                                 @PathVariable("nomUniversite") String nomUniversite) {
-        Universite universite= universiteService.affecterFoyerAUniversite(idFoyer,nomUniversite);
-        return universite;
+        return universiteService.affecterFoyerAUniversite(idFoyer,nomUniversite);
     }
 
     // http://localhost:8089/foyer/universite/desaffecterFoyerAUniversite/1/1

@@ -2,7 +2,7 @@ package tn.esprit.foyer.services;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tn.esprit.foyer.entities.Bloc;
 import tn.esprit.foyer.entities.Chambre;
@@ -31,6 +31,8 @@ public class ChambreServiceImpl implements IChambreService {
 
     @Override
     public List<Chambre> retrieveAllChambres() {
+
+        System.out.println("in method retrieveAllChambres");
         return chambreRepository.findAll();
     }
 
@@ -77,10 +79,13 @@ public class ChambreServiceImpl implements IChambreService {
     @Override
     public List<Chambre> getChambresParNomBloc(String nomBloc) {
         return chambreRepository.findByBlocNomBloc(nomBloc);
+
     }
+
 
     @Override
     public long nbChambreParTypeEtBloc(TypeChambre type, long idBloc) {
+
         return chambreRepository.nbChambreParTypeEtBloc(type, idBloc);
     }
 
@@ -108,7 +113,7 @@ public class ChambreServiceImpl implements IChambreService {
         return chambresDisponibles;
     }
 
-    //@Scheduled(fixedRate = 60000)
+  //  @Scheduled(fixedRate = 60000)
     public void pourcentageChambreParTypeChambre() {
         Integer nbTotalsChambres = chambreRepository.findAll().size();
         log.info("nbTotalsChambres : " + nbTotalsChambres);

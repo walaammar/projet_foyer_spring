@@ -17,11 +17,16 @@ import java.util.List;
 public class Chambre implements Serializable {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column(name="idChambre")
     Long idChambre; // Clé primaire
     Long numeroChambre;
     @Enumerated(EnumType.STRING)
     TypeChambre typeC;
+
+
+
+
+
+
 
     @OneToMany(fetch = FetchType.EAGER)
     List<Reservation> reservations;

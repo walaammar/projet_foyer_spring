@@ -17,14 +17,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 @Slf4j
+@AllArgsConstructor
 public class EtudiantServiceImpl implements  IEtudiantService{
+
 
 
     EtudiantRepository etudiantRepository;
 
+
     FoyerRepository foyerRepository;
+
 
     ReservationRepository reservationRepository;
 
@@ -35,26 +38,29 @@ public class EtudiantServiceImpl implements  IEtudiantService{
 
     @Override
     public Etudiant addEtudiant(Etudiant e) {
+        log.info("debut methode addEtudiant");
         // calcul tranche Age selon l'age
         return etudiantRepository.save(e);
     }
 
     @Override
     public Etudiant updateEtudiant(Etudiant e) {
-
+        log.info("debut methode updateEtudiant");
         return etudiantRepository.save(e);
     }
 
     @Override
     public Etudiant retrieveEtudiant(Long idEtudiant) {
         Etudiant e = etudiantRepository.findById(idEtudiant).orElse(null);
+        log.info("fin methode retrieveEtudiant");
+
         return e;
     }
 
     @Override
     public void removeEtudiant(Long idEtudiant) {
         if (!etudiantRepository.existsById(idEtudiant)) {
-            throw new EntityNotFoundExceptionById("Invlaid Id Etudiant was provided");
+            throw new EntityNotFoundExceptionById("Invalid Id Etudiant was provided");
         }
             etudiantRepository.deleteById(idEtudiant);
     }
@@ -68,9 +74,10 @@ public class EtudiantServiceImpl implements  IEtudiantService{
     }
 
     @Override
-    public Etudiant affecterEtudiantAReservation(String nomEt, String prenomEt, String idReservation) {
+    public Etudiant affecterEtudiantAReservation(String nomEt, String prenomEt,
+                                                 String idReservation) {
         Etudiant e = etudiantRepository.findByNomEtAndPrenomEt( nomEt, prenomEt);
-           Reservation r = reservationRepository.findById(idReservation).orElse(null);
+        Reservation r = reservationRepository.findById(idReservation).orElse(null);
            // controle de saisie +
           List<Etudiant> etudiants = new ArrayList<>();
         if (r.getEtudiants()!=null) {

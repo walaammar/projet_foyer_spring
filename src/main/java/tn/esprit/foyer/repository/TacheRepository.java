@@ -2,34 +2,18 @@ package tn.esprit.foyer.repository;
 
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import tn.esprit.foyer.entities.Etudiant;
+import tn.esprit.foyer.entities.Tache;
+import java.time.LocalDate;
 
 
 @Repository
-public interface EtudiantRepository extends JpaRepository<Etudiant,Long> {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Etudiant findByCin(Long idEtudiant);
-Etudiant findByNomEtAndPrenomEt(String nomEt, String prenomEt);
-//@Query(value = "select * from  reservation_etudiants re where re.etudiants_id_etudiant=:idEtudiant", nativeQuery = true)
-  //  List<Reservation> rechercheAncienneReservag
+public interface TacheRepository extends JpaRepository<Tache,Long> {
+    @Query("select sum(t.tarifHoraire*t.duree) from Tache t where t.dateTache " +
+            "between :t1 and :t2 and t.etudiant.idEtudiant=:idEtudiant")
+    Float sommeTacheAnneeEncours(@Param("t1") LocalDate t1,
+                                 @Param("t2")LocalDate t2,
+                                 @Param("idEtudiant")Long idEtudiant);
 }

@@ -3,6 +3,7 @@ package tn.esprit.foyer.services;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tn.esprit.foyer.entities.Chambre;
 import tn.esprit.foyer.entities.Etudiant;
@@ -120,22 +121,24 @@ public class ReservationServicImpl implements IReservationService {
         return reservationRepository.findByAnneeUniversitaireBetween(dateDebut,dateFin);
     }
 
-   // @Scheduled(fixedRate = 60000)
+  //  @Scheduled(fixedRate = 60000)
     public void nbPlacesDisponibleParChambreAnneeEnCours() {
         LocalDate currentdate = LocalDate.now();
-        LocalDate dateDebut = LocalDate.of(currentdate.getYear()-1,12,31);
-        LocalDate dateFin = LocalDate.of(currentdate.getYear()+1,1,1);
+        LocalDate dateDebut = LocalDate.of(currentdate.getYear(),12,31);
+        LocalDate dateFin = LocalDate.of(currentdate.getYear(),1,1);
         List<Chambre> chambresDisponibles = chambreRepository.findAll();
         chambresDisponibles.forEach(
                 chambre -> {
-                AtomicReference<Integer> nbChambresOccupes = new AtomicReference<>(0);
+         //       AtomicReference<Integer> nbChambresOccupes = new AtomicReference<>(0);
+                  AtomicReference<Integer> nbChambresOccupes = new AtomicReference<>(0);
+
                     if(chambre.getReservations()!=null)
                     {
                         List<Reservation> reservations = chambre.getReservations();
                         reservations.stream().forEach(
                                 reservation -> {
                                     if (reservation.getEstValid() && reservation.getAnneeUniversitaire().isAfter(dateDebut) && reservation.getAnneeUniversitaire().isBefore(dateFin))
-                                        nbChambresOccupes.getAndSet(nbChambresOccupes.get() + 1);
+                                       nbChambresOccupes.getAndSet(nbChambresOccupes.get() + 1);
                                 }
                         );
                     }

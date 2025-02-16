@@ -41,8 +41,7 @@ public class ChambreRestController {
     @PutMapping("/update-chambre")
     @ResponseBody
     public Chambre updateChambre(@RequestBody Chambre c) {
-        Chambre chambre= chambreService.updateChambre(c);
-        return chambre;
+        return chambreService.updateChambre(c);
     }
     // http://localhost:8089/foyer/chambre/removeChambre
     @DeleteMapping("/removeChambre/{idChambre}")
@@ -54,8 +53,8 @@ public class ChambreRestController {
     // http://localhost:8089/foyer/chambre/findByTypeCAndBlocIdBloc/DOUBLE/1
     @GetMapping("/findByTypeCAndBlocIdBloc/{typeChambre}/{idBloc}")
     @ResponseBody
-    public List<Chambre> findByTypeCAndBlocIdBloc(@PathVariable("typeChambre") TypeChambre typeChambre,@PathVariable("idBloc")  Long idBloc) {
-        List<Chambre> listChambresByTypeCAndBlocIdBloc = chambreService.findByTypeCAndBlocIdBloc(typeChambre,idBloc);
+    public List<Chambre> findByTypeCAndBlocIdBloc(@PathVariable("typeChambre") TypeChambre t, @PathVariable("idBloc")  Long idBloc) {
+        List<Chambre> listChambresByTypeCAndBlocIdBloc = chambreService.findByTypeCAndBlocIdBloc(t,idBloc);
         return listChambresByTypeCAndBlocIdBloc;
     }
 
@@ -63,24 +62,22 @@ public class ChambreRestController {
     @GetMapping("/findByReservationsEstValid/{estValid}")
     @ResponseBody
     public List<Chambre> findByReservationsEstValid(@PathVariable("estValid") Boolean estValid) {
-        List<Chambre> listChambresByReservationsEstValid = chambreService.findByReservationsEstValid(estValid);
-        return listChambresByReservationsEstValid;
+        return chambreService.findByReservationsEstValid(estValid);
     }
 
     // http://localhost:8089/foyer/chambre/findByBlocIdBlocAndBlocCapaciteBloc/1/100
     @GetMapping("/findByBlocIdBlocAndBlocCapaciteBloc/{idBloc}/{capaciteBloc}")
     @ResponseBody
     public List<Chambre> findByBlocIdBlocAndBlocCapaciteBloc(@PathVariable("idBloc") Long idBloc,@PathVariable("capaciteBloc")  Long capaciteBloc) {
-        List<Chambre> listChambresByTypeCAndBlocIdBloc = chambreService.findByBlocIdBlocAndBlocCapaciteBlocGreaterThan(idBloc,capaciteBloc);
-        return listChambresByTypeCAndBlocIdBloc;
+       return chambreService.findByBlocIdBlocAndBlocCapaciteBlocGreaterThan(idBloc,capaciteBloc);
     }
 
 
     // http://localhost:8089/foyer/chambre/getChambresParNomBloc/A
     @GetMapping("/getChambresParNomBloc/{nomBloc}")
     @ResponseBody
-    public  List<Chambre> getChambresParNomBloc(@PathVariable("nomBloc") String nomBloc) {
-        return chambreService.getChambresParNomBloc(nomBloc);
+    public  List<Chambre> getChambresParNomBloc(@PathVariable("nomBloc") String n) {
+        return chambreService.getChambresParNomBloc(n);
     }
 
     // http://localhost:8089/foyer/chambre/nbChambreParTypeEtBloc/DOUBLE/1

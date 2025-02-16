@@ -14,6 +14,18 @@ public class BlocRestController {
 
     IBlocService blocService;
 
+
+
+
+
+
+
+
+
+
+
+
+
     // http://localhost:8089/foyer/bloc/retrieve-all-blocs
     @GetMapping("/retrieve-all-blocs")
     @ResponseBody

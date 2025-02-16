@@ -3,10 +3,8 @@ package tn.esprit.foyer.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Getter
@@ -15,28 +13,22 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @RequiredArgsConstructor
-public class Etudiant implements Serializable {
+public class Tache implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idEtudiant; // Clé primaire
+    private Long idTache; // Clé primaire
     @NonNull
-    private String nomEt;
+    private LocalDate dateTache;
     @NonNull
-     String prenomEt;
-     Long cin;
-     String ecole;
-     LocalDate dateNaissance;
+     Integer duree;
+     Float tarifHoraire;
+     @Enumerated(EnumType.STRING)
+     TypeTache typeTache;
 
-
-
-    @ManyToMany(mappedBy = "etudiants",fetch = FetchType.EAGER)
-    List<Reservation> reservations;
-
-    public Etudiant(String nomEt, String prenomEt, String ecole) {
-        this.nomEt = nomEt;
-        this.prenomEt = prenomEt;
-        this.ecole = ecole;
-    }
+    @ManyToOne()
+    Etudiant etudiant;
+    @OneToOne(mappedBy = "tache")
+    Etudiant etudiantResponsable;
 
 
 
