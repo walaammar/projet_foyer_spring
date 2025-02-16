@@ -1,6 +1,2 @@
-package tn.esprit.foyer.entities;
-
-public enum TypeChambre {
-    SIMPLE,DOUBLE,TRIPLE
-
+package tn.esprit.foyer.entities;public enum TypeChambre {
 }
